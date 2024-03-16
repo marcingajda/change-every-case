@@ -1,6 +1,6 @@
 {
   "name": "change-every-case",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Recursively change object keys case",
   "main": "index.js",
   "type": "module",
