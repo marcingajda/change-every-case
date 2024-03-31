@@ -12,6 +12,10 @@ const changeKeysFactory = <Options extends changeCase.Options = changeCase.Optio
       return input;
     }
 
+    if (input instanceof Date) {
+      return input;
+    }
+
     if (Array.isArray(input)) {
       return input.map((item) => {
         return changeKeys(item, options);
