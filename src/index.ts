@@ -6,10 +6,16 @@ const isObject = (object: unknown): object is Record<string, unknown> => {
 
 type Formatter<Options> = (input: string, options?: Options) => string;
 
+type ExtendedOptions<Options extends changeCase.Options> = Options & {
+  maxDeep?: number;
+};
+
 const changeKeysFactory = <Options extends changeCase.Options = changeCase.Options>(changeCase: Formatter<Options>) => {
-  return function changeKeys(input: unknown, options?: Options, level = 0): unknown {
-    if (level === 1000) {
-      throw new Error('Maximum level of 1000 reached. Object is probably recursive!');
+  return function changeKeys(input: unknown, extendedOptions?: ExtendedOptions<Options>, level = 0): unknown {
+    const { maxDeep = 1000, ...options } = extendedOptions ?? {};
+
+    if (level === maxDeep) {
+      throw new Error(`Maximum level of ${maxDeep} reached!`);
     }
 
     if (!isObject(input)) {
@@ -22,7 +28,7 @@ const changeKeysFactory = <Options extends changeCase.Options = changeCase.Optio
 
     if (Array.isArray(input)) {
       return input.map((item) => {
-        return changeKeys(item, options, level + 1);
+        return changeKeys(item, extendedOptions, level + 1);
       });
     }
 
@@ -33,8 +39,8 @@ const changeKeysFactory = <Options extends changeCase.Options = changeCase.Optio
     Object.keys(input).forEach((key) => {
       const value = (input as Record<string, unknown>)[key];
 
-      const changedKey = changeCase(key, options);
-      const changedValue = changeKeys(value, options, level + 1);
+      const changedKey = changeCase(key, options as Options);
+      const changedValue = changeKeys(value, extendedOptions, level + 1);
 
       result[changedKey] = changedValue;
     });

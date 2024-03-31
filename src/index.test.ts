@@ -89,5 +89,17 @@ test('Prevents infinity loop', () => {
   
   input.recursive.value = input;
 
-  assert.throws(() => changeEveryCase.kebabKeys(input), new Error('Maximum level of 1000 reached. Object is probably recursive!'));
+  assert.throws(() => changeEveryCase.kebabKeys(input), new Error('Maximum level of 1000 reached!'));
+});
+
+test('Allows to configure maximum deep', () => {
+  const input = {
+    recursive: {
+      value: {}
+    },
+  };
+  
+  input.recursive.value = input;
+
+  assert.throws(() => changeEveryCase.kebabKeys(input, { maxDeep: 500 }), new Error('Maximum level of 500 reached!'));
 });
