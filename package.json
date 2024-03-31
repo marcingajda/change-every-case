@@ -1,7 +1,18 @@
 {
   "name": "change-every-case",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Recursively change object keys case",
+  "keywords": [
+    "change",
+    "case",
+    "convert",
+    "transform",
+    "camel-case",
+    "pascal-case",
+    "params-case",
+    "kebab-case",
+    "dot-case"
+  ],
   "main": "index.js",
   "type": "module",
   "files": [

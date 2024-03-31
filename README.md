@@ -18,7 +18,7 @@ npm i change-every-case
 
 ## Examples
 
-Format obects:
+Format objects:
 
 ```ts
 import { camelKeys } from 'change-every-case';
