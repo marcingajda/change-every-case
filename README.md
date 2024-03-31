@@ -5,11 +5,6 @@ designed to change the casing of object keys. It is useful, for example,
 for converting objects from the REST standard to JavaScript best practices,
 and vice versa.
 
-It functions similarly to `change-case`, but it accepts any type of input
-as the first parameter. The options for the second parameter are exactly
-the same as those for [`change-case`][1].
-
-
 ## Install
 
 ```
@@ -18,34 +13,43 @@ npm i change-every-case
 
 ## Examples
 
-Format objects:
+You can use this library to change object keys:
+
+```ts
+import { dotKeys } from 'change-every-case';
+
+const result = dotKeys({ hello_world: 'Lorem Ipsum' });
+
+// { 'hello.world': 'Lorem Ipsum }
+```
+
+You can also work with nested objects containing arrays and other values:
 
 ```ts
 import { camelKeys } from 'change-every-case';
 
 const input = {
-    lorem_ipsum: 'lorem_ipsum',
-    hello_planets: [
-        {
-        planet_earth: 'Hello c',
-        planet_mars: 'Hello Mars',
-        }
-    ],
-    value: 3,
+  lorem_ipsum: 'lorem_ipsum',
+  hello_planets: [
+    {
+      planet_earth: 'Hello c',
+      planet_mars: 'Hello Mars',
+    }
+  ],
+  value: 3,
 };
 
 const result = camelKeys(input);
 
-// result:
 // {
-//     loremIpsum: 'lorem_ipsum',
-//     helloPlanets: [
-//         {
-//             planetEarth: 'Hello Hello ',
-//             planetMars: 'Hello Mars',
-//         }
-//     ],
-//     value: 3,
+//   loremIpsum: 'lorem_ipsum',
+//   helloPlanets: [
+//     {
+//       planetEarth: 'Hello Hello ',
+//       planetMars: 'Hello Mars',
+//     }
+//   ],
+//   value: 3,
 // };
 ```
 
@@ -55,18 +59,40 @@ You can also pass arrays:
 import { camelKeys } from 'change-every-case';
 
 const inputArray = [
-    { hello_world: 3 },
-    { foo_bar: 3 }
+  { hello_world: 3 },
+  { foo_bar: 3 }
 ];
 
 const result = camelKeys(inputArray);
 
-// result:
 // [
-//     { helloWorld: 3 },
-//     { fooBar: 3 }
+//   { helloWorld: 3 },
+//   { fooBar: 3 }
 // ];
 ```
+
+## Supported formats
+
+| **Funtion**     | **Key example** |
+|-----------------|-----------------|
+| noKeys          | hello world     |
+| camelKeys       | helloWorld      |
+| pascalKeys      | HelloWorld      |
+| pascalSnakeKeys | Hello_World     |
+| capitalKeys     | Hello World     |
+| constantKeys    | HELLO_WORLD     |
+| dotKeys         | hello.world     |
+| kebabKeys       | hello-world     |
+| pathKeys        | hello/world     |
+| sentenceKeys    | Hello world     |
+| snakeKeys       | hello_world     |
+| trainKeys       | Hello-World     |
+
+## Options
+
+The functions are similar to those in `change-case`, but they accept any
+type of input as the first parameter. The options for the second parameter
+are exactly the same as those for [`change-case`][1].
 
 ## Heads up!
 
