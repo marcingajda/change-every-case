@@ -79,3 +79,15 @@ test('Alows to pass custom options', (t) => {
   assert.deepEqual(changeEveryCase.dotKeys(input, { split }), output);
   assert.notDeepEqual(changeEveryCase.dotKeys(input), output);
 });
+
+test('Prevents infinity loop', () => {
+  const input = {
+    recursive: {
+      value: {}
+    },
+  };
+  
+  input.recursive.value = input;
+
+  assert.throws(() => changeEveryCase.kebabKeys(input), new Error('Maximum level of 1000 reached. Object is probably recursive!'));
+});
