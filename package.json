@@ -1,6 +1,6 @@
 {
   "name": "change-every-case",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Recursively change object keys case",
   "keywords": [
     "change",
